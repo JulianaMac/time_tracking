@@ -1,0 +1,9 @@
+<%= form_for @geofence, url: geofences_path, html: {class: "nifty_form"} do |f| %>
+  <%= f.label :latitude, 'Latitude:' %>
+  <p><%= f.text_field :latitude %></p>
+  <%= f.label :longitude, 'Longitude:' %>
+  <p><%= f.text_field :longitude %></p>
+  <%= f.label :radius, 'Raio:' %>
+  <p><%= f.text_field :radius %></p>
+  <%= f.submit "Create" %>
+<% end %>

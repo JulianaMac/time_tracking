@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Timetracking</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGPAaW1pdj1eQDgVRaPxTOfs8S8wZE3J8&libraries=geometry">
+    </script>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

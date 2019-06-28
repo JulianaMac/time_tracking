@@ -1,0 +1,30 @@
+<h1>TimeTrackings</h1>
+<div class="container">
+  <%= form_tag time_trackings_path, method: :get  do |f| %>
+
+    <div class="row">
+      <div class="col-md-10">
+        <%= label_tag 'Time' %>
+        <%= text_field_tag 'start', params[:start], class: 'datetimepicker'%>
+        <%= text_field_tag 'end', params[:end], class: 'datetimepicker'%>
+
+      </div>
+    </div>
+
+    <%= submit_tag 'Filtrar' %>
+  <% end %>
+
+</div>
+
+<% @time_trackings.each do |time_tracking| %>
+  <p>
+    <%= time_tracking.comment %>
+    <%= time_tracking.latitude %>
+  </p>
+<% end %>
+
+<script>
+    $(function () {
+        $('.datetimepicker').datetimepicker();
+    });
+</script>

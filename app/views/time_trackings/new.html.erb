@@ -1,0 +1,98 @@
+
+<%= form_for @timetracking, url: time_trackings_path, html: {class: "nifty_form"} do |f| %>
+  <%= f.label :comment, 'Comentários:' %>
+  <p><%= f.text_area :comment %></p>
+  <%= f.hidden_field :latitude %>
+  <%= f.hidden_field :longitude %>
+  <%= f.submit "Create", disabled: true, id: 'submit' %>
+<% end %>
+<div id="clock"> </div>
+
+<style>
+  #clock {
+    font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+    color: #FA8072;
+    font-size: 56px;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+  }
+</style>
+<script>
+    function currentTime() {
+        var date = new Date(); /* creating object of Date class */
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        var sec = date.getSeconds();
+        hour = updateTime(hour);
+        min = updateTime(min);
+        sec = updateTime(sec);
+        document.getElementById("clock").innerText = hour + " : " + min + " : " + sec; /* adding time to the div */
+        var t = setTimeout(function(){ currentTime() }, 1000); /* setting timer */
+    }
+
+    function updateTime(k) {
+        if (k < 10) {
+            return "0" + k;
+        }
+        else {
+            return k;
+        }
+    }
+
+    currentTime(); /* calling currentTime() function to initiate the process */
+
+    $( document ).ready(getLocation());
+    var x=document.getElementById("demo");
+    function getLocation()
+    {
+        if (navigator.geolocation)
+        {
+
+            navigator.geolocation.getCurrentPosition(setPosition,showError);
+        }
+        else{x.innerHTML="Seu browser não suporta Geolocalização.";}
+    }
+    // baseado em https://stackoverflow.com/a/20044849
+    function setPosition(position)
+    {
+        document.getElementById("time_tracking_latitude").value = position.coords.latitude;
+        document.getElementById("time_tracking_longitude").value = position.coords.longitude;
+
+        const geofences = JSON.parse('<%= @geofences.to_json.html_safe %>');
+        let inside = false;
+        geofences.forEach((geofence) => {
+            if (google.maps.geometry.spherical.computeDistanceBetween(
+                new google.maps.LatLng( position.coords.latitude,position.coords.longitude ),
+                new google.maps.LatLng( geofence[0],geofence[1] )
+            ) <= geofence[2]) {
+                inside = true;
+            }
+        });
+
+        if(inside) {
+            $('#submit').removeAttr('disabled');
+        } else {
+            console.log('Você está fora da área permitida.')
+        }
+    }
+    function showError(error)
+    {
+        switch(error.code)
+        {
+            case error.PERMISSION_DENIED:
+                x.innerHTML="Usuário rejeitou a solicitação de Geolocalização."
+                break;
+            case error.POSITION_UNAVAILABLE:
+                x.innerHTML="Localização indisponível."
+                break;
+            case error.TIMEOUT:
+                x.innerHTML="A requisição expirou."
+                break;
+            case error.UNKNOWN_ERROR:
+                x.innerHTML="Algum erro desconhecido aconteceu."
+                break;
+        }
+    }
+</script>

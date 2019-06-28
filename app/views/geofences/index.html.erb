@@ -1,0 +1,16 @@
+<h1>Geofences</h1>
+<table>
+<% @geofences.each do |geofence| %>
+  <tr>
+    <td><%= geofence.latitude %></td>
+    <td><%= geofence.longitude %></td>
+    <td><%= geofence.radius %></td>
+    <td>
+      <%= link_to 'Show Geofence', action: 'show', id: geofence %>
+    </td>
+  </tr>
+<% end %>
+
+</table>
+
+  <p><%= link_to "New Geofence", new_geofence_path %></p>

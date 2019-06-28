@@ -1,0 +1,3 @@
+class Geofence < ApplicationRecord
+
+end
