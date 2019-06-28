@@ -1,24 +1,20 @@
-# README
+Time Tracking
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Registrar o horário em que o usuário bater o ponto e verificar se o mesmo está dentro de algum geofence.
 
-Things you may want to cover:
+Versão Ruby: 2.4.6
 
-* Ruby version
+Instruções para iniciar o projeto:
 
-* System dependencies
+bundle install
 
-* Configuration
+rails s
 
-* Database creation
+* Criar/mostrar Geofences: /geofences
 
-* Database initialization
+* Tabela com todos os Time Trackings e filtro para mostrar um time tracking específico: /time_trakings
 
-* How to run the test suite
+* Criar Time Trackings: /time_trackings/new
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
 
-* ...
